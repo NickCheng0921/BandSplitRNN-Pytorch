@@ -57,6 +57,10 @@ class Separator(nn.Module):
                 state_dict = load_pl_state_dict(self.ckpt_path, device='cpu')
             elif self.ckpt_path.suffix == '.pt':
                 state_dict = torch.load(self.ckpt_path, map_location='cpu')
+                # downloaded pt checkpoint has different model names
+                state_dict = {key.replace('model.', ''): value for key, value in state_dict.items()}
+                del state_dict['featurizer.window']
+                del state_dict['inverse_featurizer.window']
             else:
                 raise ValueError(f"Expected checkpoint path, got {self.ckpt_path}.")
             _ = model.load_state_dict(state_dict, strict=True)

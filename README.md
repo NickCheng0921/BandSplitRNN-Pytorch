@@ -1,3 +1,12 @@
+# Why does this fork exist?
+Original repo had two issues I encountered when trying to replicate the model, and I wanted a version of my own that I could modify freely and fine tune.
+
+First issue - cuFFT from the torch in the old repo throws [this](https://forums.developer.nvidia.com/t/bug-ubuntu-on-wsl2-rtx4090-related-cufft-runtime-error/230883/7) error, which can be corrected through using newest torch build, but I didn't want to test compatibility w the old repo's library (4090 + ubuntu error)
+
+Second issue - the new version of torch being used (torchaudio==2.0.2) appears to follow a different layer naming convention, meaning the loading process for the .pt files have to be slightly altered
+
+Both issues were solved through updating torch, then modifying the checkpoint loader.
+
 # BandSplitRNN Pytorch
 
 Unofficial PyTorch implementation of the paper [Music Source Separation with Band-split RNN](https://arxiv.org/pdf/2209.15174.pdf).
